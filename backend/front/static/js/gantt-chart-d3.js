@@ -24,6 +24,7 @@ function descFunction (d, i) {
  * @returns {gantt}
  */
 
+var amphasize = false;
 d3.gantt = function () {
     var FIT_TIME_DOMAIN_MODE = "fit";
     var FIXED_TIME_DOMAIN_MODE = "fixed";
@@ -118,15 +119,19 @@ d3.gantt = function () {
                     timer = setTimeout(function() {
 
                         clicks = 0;             //after action performed, reset counter
-                        $(".chart rect").attr("opacity","0.05");
+                        if(amphasize==false){
+                            $(".chart rect").attr("opacity","0.05");
+                        }
                         console.log(d);
                         $(`.chart rect[employee=${d.employee_info.id}]`).attr("opacity","1");
+                        amphasize=true;
                     }, DELAY);
 
                 } else {
 
                     clearTimeout(timer);    //prevent single-click action
                     $(`.chart rect`).attr("opacity","1");
+                    amphasize=false;
                     clicks = 0;             //after action performed, reset counter
                 }
                 
