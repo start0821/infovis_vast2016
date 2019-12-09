@@ -1,0 +1,25 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+<script
+  type="text/javascript" 
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+<link rel="stylesheet" href="{% static 'css/base.css' %}">
+
+{% comment %} <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script> {% endcomment %}
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/ramda/0.20.0/ramda.min.js"></script>
+{% comment %} <script type="text/javascript" src="https://d3js.org/d3.v5.min.js"></script> {% endcomment %}
+<script type="text/javascript" src="{% static 'js/d3.v5.min.js' %}"></script>
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+<script type="text/javascript" src="{% static 'js/base.js' %}"></script>
+{% block header %}{% endblock header %}
+</head>
+<body>
+{% include "_navbar.html" %}
+{% block content %}
+{% endblock content %}
+</body>
+</html>

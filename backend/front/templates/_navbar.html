@@ -1,0 +1,12 @@
+<header>
+<ul>
+  <li><a href="{% url 'proxy' %}">Proxy</a></li>
+  <li><a href="{% url 'bldg' %}">Building</a></li>
+  <li><a href="{% url 'relation' %}">Relation</a></li>
+</ul>
+</header>
+
+<script type="text/javascript">
+   let url = window.location.pathname;
+    $(`a[href='${url}'`).addClass("active");
+</script>

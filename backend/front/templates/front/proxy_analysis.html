@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block content %}
+
+<!-- proxy map image -->
+{% comment %}
+<img height="500" src="{% static 'images/Building Layout/Prox Zones/VAST_ProxZones_F1.jpg' %}"/>
+<img height="500" src="{% static 'images/Building Layout/Prox Zones/VAST_ProxZones_F2.jpg' %}"/>
+<img id="proxzone3" height="500" src="{% static 'images/Building Layout/Prox Zones/VAST_ProxZones_F3.jpg' %}"/> 
+{% endcomment %}
+{% comment %} <script src="https://d3js.org/d3.v4.js"></script> {% endcomment %}
+<script type="text/javascript" src="{% static 'js/d3.v4.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/popper.min.js' %}"></script>
+{% comment %} <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script> {% endcomment %}
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+<div class="container .grid_box">
+<div id="prox1"></div>
+    <div class="row">
+        <div class="col-6 container">
+            <div class="floor_1 row">
+                <div class="col-6 floor_1 floor_common">
+                    <input type="checkbox" name="area_selection" floor="1" zone="1">Zone 1
+                    <input type="checkbox" name="area_selection" floor="1" zone="2">Zone 2
+                    <input type="checkbox" name="area_selection" floor="1" zone="3">Zone 3<br>
+                    <input type="checkbox" name="area_selection" floor="1" zone="4">Zone 4
+                    {% comment %} <input type="checkbox" name="area_selection" floor="1" zone="5">Zone 5 {% endcomment %}
+                    <input type="checkbox" name="area_selection" floor="1" zone="7">Zone 7
+                    <input type="checkbox" name="area_selection" floor="1" zone="8">Zone 8<br>
+                </div>
+                <div class="col-6 floor_1_1">
+                        1st Floor <br>
+                </div>
+            </div>
+            <div class="row floor_2">
+                <div class="floor_common col-6">
+                    <input type="checkbox" name="area_selection" floor="2" zone="1">Zone 1
+                    <input type="checkbox" name="area_selection" floor="2" zone="2">Zone 2
+                    <input type="checkbox" name="area_selection" floor="2" zone="3">Zone 3<br>
+                    <input type="checkbox" name="area_selection" floor="2" zone="4">Zone 4
+                    {% comment %} <input type="checkbox" name="area_selection" floor="2" zone="5">Zone 5 {% endcomment %}
+                    <input type="checkbox" name="area_selection" floor="2" zone="6">Zone 6
+                    <input type="checkbox" name="area_selection" floor="2" zone="7">Zone 7<br>
+                </div>
+                <div class="col-6 floor_2_1">
+                        2nd Floor
+                </div>
+            </div>
+            <div class="floor_3 row">
+                <div class="floor_common col-6">
+                    <input type="checkbox" name="area_selection" floor="3" zone="1">Zone 1
+                    <input type="checkbox" name="area_selection" floor="3" zone="2">Zone 2
+                    <input type="checkbox" name="area_selection" floor="3" zone="3">Zone 3<br>
+                    {% comment %} <input type="checkbox" name="area_selection" floor="3" zone="5">Zone 5 {% endcomment %}
+                    <input type="checkbox" name="area_selection" floor="3" zone="6">Zone 6
+                    <input type="checkbox" name="area_selection" floor="3" zone="9">Zone 9<br>
+                </div>
+                <div class="col-6 floor_3_1">
+                        3rd Floor
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<link rel="stylesheet" href="{% static 'css/proxy_analysis.css' %}">
+<script type="text/javascript" src="{% static 'js/proxy_analysis.js' %}"></script>
+<script type="text/javascript">
+$(function(){
+    $("input:checkbox").click(function(){
+        let floor = parseInt($(this).attr("floor"));
+        let zone = parseInt($(this).attr("zone"));
+        console.log(floor*10+zone);
+        set_svg(floor*10+zone);
+        $("input:checked").not(this).each(function(){
+            this.checked = false;
+        })
+    })
+})
+</script>
+{% endblock content %}
+
+{% comment %} example0 {% endcomment %}
+<h1> 세로형 막대그래프 </h1>
+<svg id="myGraph" width="700" height="700">
+</svg>
+<hr>
+
+{% comment %} example1 {% endcomment %}
+<svg id="myGraph1" width="700" height="700"></svg>
+{% comment %} example2 {% endcomment %}
+<svg id="chart-area" width="1000" height="1000"></svg>

@@ -1,0 +1,182 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block header %}
+
+<script>
+    var org_data = new Object()
+    d3.csv("{% static 'data/BuildingProxSensorData/csv/bldg-MC2.csv' %}").then(function(data) {
+        // for(var i=0; i<4; i++){
+            
+            // org_data = data.slice(10,24);
+            org_data = data;
+
+        // }
+    });
+</script>
+{% endblock header %}
+
+{% block content %}
+
+
+<!-- proxy map image -->
+<!-- 
+<img height="500" src="{% static 'images/Building Layout/Prox Zones/VAST_ProxZones_F1.jpg' %}"/>
+<img height="500" src="{% static 'images/Building Layout/Prox Zones/VAST_ProxZones_F2.jpg' %}"/>
+<img id="proxzone3" height="500" src="{% static 'images/Building Layout/Prox Zones/VAST_ProxZones_F3.jpg' %}"/>  -->
+
+
+<link rel="stylesheet" href="{% static 'css/proxy_analysis.css' %}">
+<link rel="stylesheet" href="{% static 'css/bldg_analysis.css' %}">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+<div id="my_dataviz"></div>
+<div class="container .grid_box">
+    <div class="row">
+        <div class="col-6 container">
+            <div class="floor_1 row">
+                <div class="col-6 floor_1 floor_common">
+                    <input type="checkbox" name="area_selection" floor="1" zone="1">Zone 1
+                    <input type="checkbox" name="area_selection" floor="1" zone="2">Zone 2
+                    <input type="checkbox" name="area_selection" floor="1" zone="3">Zone 3<br>
+                    <input type="checkbox" name="area_selection" floor="1" zone="4">Zone 4
+                    <input type="checkbox" name="area_selection" floor="1" zone="5">Zone 5
+                    <input type="checkbox" name="area_selection" floor="1" zone="7">Zone 7<br>
+                    <input type="checkbox" name="area_selection" floor="1" zone="8A">Zone 8A
+                    <input type="checkbox" name="area_selection" floor="1" zone="8B">Zone 8B
+                </div>
+                <div class="col-6 floor_1_1">
+                        1st Floor <br>
+                </div>
+            </div>
+            <div class="row floor_2">
+                <div class="floor_common col-6">
+                    <input type="checkbox" name="area_selection" floor="2" zone="1">Zone 1
+                    <input type="checkbox" name="area_selection" floor="2" zone="2">Zone 2
+                    <input type="checkbox" name="area_selection" floor="2" zone="3">Zone 3<br>
+                    <input type="checkbox" name="area_selection" floor="2" zone="4">Zone 4
+                    <input type="checkbox" name="area_selection" floor="2" zone="5">Zone 5
+                    <input type="checkbox" name="area_selection" floor="2" zone="6">Zone 6<br>
+                    <input type="checkbox" name="area_selection" floor="2" zone="7">Zone 7
+                    <input type="checkbox" name="area_selection" floor="2" zone="8">Zone 8
+                    <input type="checkbox" name="area_selection" floor="2" zone="9">Zone 9<br>
+                    <input type="checkbox" name="area_selection" floor="2" zone="10">Zone 10
+                    <input type="checkbox" name="area_selection" floor="2" zone="11">Zone 11
+                    <input type="checkbox" name="area_selection" floor="2" zone="12A">Zone 12A<br>
+                    <input type="checkbox" name="area_selection" floor="2" zone="12B">Zone 12B
+                    <input type="checkbox" name="area_selection" floor="2" zone="12C">Zone 12C
+                    <input type="checkbox" name="area_selection" floor="2" zone="14">Zone 14<br>
+                    <input type="checkbox" name="area_selection" floor="2" zone="15">Zone 15
+                    <input type="checkbox" name="area_selection" floor="2" zone="16">Zone 16
+                </div>
+                <div class="col-6 floor_2_1">
+                        2nd Floor
+                </div>
+            </div>
+            <div class="floor_3 row">
+                <div class="floor_common col-6">
+                    <input type="checkbox" name="area_selection" floor="3" zone="1">Zone 1
+                    <input type="checkbox" name="area_selection" floor="3" zone="2">Zone 2
+                    <input type="checkbox" name="area_selection" floor="3" zone="3">Zone 3<br>
+                    <input type="checkbox" name="area_selection" floor="3" zone="5">Zone 5
+                    <input type="checkbox" name="area_selection" floor="3" zone="6">Zone 6
+                    <input type="checkbox" name="area_selection" floor="3" zone="7">Zone 7<br>
+                    <input type="checkbox" name="area_selection" floor="3" zone="8">Zone 8
+                    <input type="checkbox" name="area_selection" floor="3" zone="9">Zone 9
+                    <input type="checkbox" name="area_selection" floor="3" zone="10">Zone 10<br>
+                    <input type="checkbox" name="area_selection" floor="3" zone="11A">Zone 11A
+                    <input type="checkbox" name="area_selection" floor="3" zone="11B">Zone 11B
+                    <input type="checkbox" name="area_selection" floor="3" zone="11C">Zone 11C<br>
+                </div>
+                <div class="col-6 floor_3_1">
+                        3rd Floor
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="row col_sel">
+                <div class="col-6">    
+                    <input type="checkbox" name="column_selection" value="Lights Power">Lights Power<br>
+                    <input type="checkbox" name="column_selection" value="Equipment Power">Equipment Power<br>
+                    <input type="checkbox" name="column_selection" value="Thermostat Temp">Thermostat Temp<br>
+                    <input type="checkbox" name="column_selection" value="Thermostat Heating Setpoint">Thermostat Heating Setpoint<br>
+                    <input type="checkbox" name="column_selection" value="Thermostat Cooling Setpoint">Thermostat Cooling Setpoint<br>
+                    <input type="checkbox" name="column_selection" value="VAV REHEAT Damper Position">VAV REHEAT Damper Position<br>	
+                    <input type="checkbox" name="column_selection" value="REHEAT COIL Power">REHEAT COIL Power<br>
+                    <input type="checkbox" name="column_selection" value="RETURN OUTLET CO2 Concentration">RETURN OUTLET CO2 Concentration<br>
+                    <input type="checkbox" name="column_selection" value="SUPPLY INLET Temperature">SUPPLY INLET Temperature<br>
+                    <input type="checkbox" name="column_selection" value="SUPPLY INLET Mass Flow Rate">SUPPLY INLET Mass Flow Rate<br>
+                </div>
+                <div class="col-6 floor_1_1">
+                    Data type
+                </div>   
+            </div>
+        </div>
+    </div>
+    <div class="row floor_4">
+        <div class="col-3 floor_1_1">
+            Floor Management
+            <p class="floor_global">
+                <input type="checkbox" name="global_floor" value="F_1_VAV_SYS">1F
+                <input type="checkbox" name="global_floor" value="F_2_VAV_SYS">2F
+                <input type="checkbox" name="global_floor" value="F_3_VAV_SYS">3F <br>
+            </p>
+        </div>
+        <div class="col-3">
+                <input type="checkbox" name="global_selection" value="HEATING COIL Power">HEATING COIL Power<br>
+                <input type="checkbox" name="global_selection" value="Outdoor Air Flow Fraction">Outdoor Air Flow Fraction<br>
+                <input type="checkbox" name="global_selection" value="Outdoor Air Mass Flow Rate">Outdoor Air Mass Flow Rate<br>
+                <input type="checkbox" name="global_selection" value="COOLING COIL Power">COOLING COIL Power<br>
+                <input type="checkbox" name="global_selection" value="AIR LOOP INLET Temperature">AIR LOOP INLET Temperature<br>
+                <input type="checkbox" name="global_selection" value="AIR LOOP INLET Mass Flow Rate">AIR LOOP INLET Mass Flow Rate<br>
+                <input type="checkbox" name="global_selection" value="SUPPLY FAN OUTLET Temperature">SUPPLY FAN OUTLET Temperature<br>
+                <input type="checkbox" name="global_selection" value="SUPPLY FAN OUTLET Mass Flow Rate">SUPPLY FAN OUTLET Mass Flow Rate<br>
+        </div>
+        <div class="col-3 floor_5 floor_1_1">Global Variables <br>
+        </div>
+        <div class="col-3 floor_5">
+            <p class="floor_global">
+                <input type="checkbox" name="global_selection2" value="Total Electric Demand Power">Total Electric Demand Power<br>
+                <input type="checkbox" name="global_selection2" value="HVAC Electric Demand Power">HVAC Electric Demand Power<br>
+                <input type="checkbox" name="global_selection2" value="Drybulb Temperature">Drybulb Temperature<br>
+                <input type="checkbox" name="global_selection2" value="F_1_Z_8A Hazium Concentration">F_1_Z_8A Hazium Concentration<br>
+                <input type="checkbox" name="global_selection2" value="F_2_Z_2 Hazium Concentration">F_2_Z_2 Hazium Concentration<br>
+                <input type="checkbox" name="global_selection2" value="F_2_Z_4 Hazium Concentration">F_2_Z_4 Hazium Concentration<br>
+                <input type="checkbox" name="global_selection2" value="F_3_Z_1 Hazium Concentration">F_3_Z_1 Hazium Concentration<br>
+            </p>
+        </div>
+    </div>
+</div>
+    
+<script>
+    var list_area = []
+    var list_column = []
+    var list_request = []
+    var cur_object = new Object()
+    var result = [];
+    // ------------------------------------------------------------------- Graph
+    // set the dimensions and margins of the graph
+    var margin = {top: 10, right: 30, bottom: 30, left: 60},
+        width = 1600 - margin.left - margin.right,
+        height = 400 - margin.top - margin.bottom;
+
+    // append the svg object to the body of the page
+    var svg = d3.select("#my_dataviz")
+    .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+        .attr("transform",
+            "translate(" + margin.left + "," + margin.top + ")");
+    // ------------------------------------------------------------------        
+    // $("input[name=area_selection]:checkbox").prop("checked", true);
+    
+    // 체크박스 필터링 구현=> 값 parsing
+</script>
+<script type="text/javascript" src="{% static 'js/bldg_analysis.js' %}"></script>
+
+{% endblock content %}
+
