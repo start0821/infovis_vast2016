@@ -25,7 +25,7 @@
 
 .path {
 	fill: steelblue;
-	/* clip-path: url(#clip); */
+	clip-path: url(#clip);
   }
 
   .floor_common{
